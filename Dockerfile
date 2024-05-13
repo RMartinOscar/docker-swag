@@ -75,6 +75,7 @@ RUN \
     php83-tokenizer \
     php83-xmlreader \
     php83-xsl \
+    php83-fpm
     whois && \
   apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
     php83-pecl-mcrypt && \
@@ -176,7 +177,8 @@ RUN \
   rm -rf \
     /tmp/* \
     $HOME/.cache \
-    $HOME/.cargo
+    $HOME/.cargo \
+  sed -i 's/#listen = 127.0.0.1:9000/listen = /run/php-fpm.sock/g' /etc/php83/php-fpm.d/www.conf
 
 # copy local files
 COPY root/ /
